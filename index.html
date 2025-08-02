@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+    }
+    .page {
+      display: none;
+      height: 100vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      transition: background 1s ease-in-out;
+      position: relative;
+    }
+    .active {
+      display: flex;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .photo {
+      max-width: 300px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+    .styled-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+    .name-boxes {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+    .name-option {
+      padding: 20px;
+      background-color: #ffffff88;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .name-option:hover {
+      transform: scale(1.05);
+      background-color: #fff;
+    }
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .balloon {
+      width: 40px;
+      height: 60px;
+      background-color: red;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const correctName = 'Teju';
+
+      window.checkName = function(nameId) {
+        if (nameId === correctName) {
+          goToPage(2);
+          playMusic();
+          launchConfetti();
+          launchBalloons();
+          fetch("https://api.ipify.org?format=json")
+            .then(res => res.json())
+            .then(data => console.log("Visitor IP:", data.ip));
+        } else {
+          alert("Oops! That's not the right name. Try again.");
+        }
+      };
+
+      window.goToPage = function(n) {
+        const pages = document.querySelectorAll(".page");
+        pages.forEach(p => p.classList.remove("active"));
+        document.getElementById("page" + n).classList.add("active");
+        if (n === 2) {
+          playMusic();
+          launchConfetti();
+          launchBalloons();
+        }
+      };
+
+      function playMusic() {
+        const music = document.getElementById("birthdayMusic");
+        if (music.paused) {
+          music.play().catch(e => console.log("Autoplay failed: ", e));
+        }
+      }
+
+      function launchConfetti() {
+        const duration = 5 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      }
+
+      function launchBalloons() {
+        const container = document.getElementById("page2");
+        for (let i = 0; i < 15; i++) {
+          const balloon = document.createElement("div");
+          balloon.classList.add("balloon");
+          balloon.style.left = Math.random() * 100 + "%";
+          balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+          balloon.style.animationDuration = (4 + Math.random() * 3) + "s";
+          container.appendChild(balloon);
+          setTimeout(() => balloon.remove(), 7000);
+        }
+      }
+
+      document.getElementById("wishText").textContent = "[Wishing You A Very Happy Birthday Teju❤❤ ..ippudu chaala rojulu ayindhi matladi, kani nenu ni prema ni machipoleka pothunna \n\nNijam cheppali ante, neeku unna manchi manasu and manchi character ki nenu still respect istunna. Ee roju ni gurinchi alochinchi ee page create chysthunna ,nen undaku povachu nitho life long but the page i am creating it should be special for you and for me too\nEnjoy your life as your wishing, Take care of yourself and Always wish you the best.]";
+      document.getElementById("sorryText").textContent = "[Sorry Raa ninnu chala badha pytta,na thappu ni nenu chala  months nuchi thylusukoni prathi roju badha paduthune unna ,kanism eeroju adhe ni birthday roju aina nannu Skhaminchu raa please.....]";
+      document.getElementById("birthdayAgainText").textContent = "[Once Again Happy BirthDay Potti ... \nsorry for calling you as a potti ]";
+      document.getElementById("finalText").textContent = "[Jhagrtha raa potti ....]";
+    });
+
+    function startExperience() {
+      const music = document.getElementById("birthdayMusic");
+      music.play().catch(e => console.log("Playback failed:", e));
+      document.getElementById("startButton").style.display = "none";
+    }
+  </script>
+</head>
+<body>
+  <!-- Background music -->
+  <audio id="birthdayMusic" src="birthday.unknown"></audio>
+  <audio autoplay loop>
+  <source src="song/song.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+
+  <!-- Page 1: Name verification -->
+  <div class="page active" id="page1">
+    <div>
+      <h2>Hey! Choose your name What I called you</h2>
+      <div class="name-boxes">
+        <div class="name-option" onclick="checkName('Sai')">Sai</div>
+        <div class="name-option" onclick="checkName('Teju')">Teju</div>
+        <div class="name-option" onclick="checkName('Sai Tejeswari')">Sai Tejeswari</div>
+      </div>
+      <button id="startButton" onclick="startExperience()">Start Birthday Surprise</button>
+    </div>
+  </div>
+
+  <!-- Page 2: Birthday wish -->
+  <div class="page" id="page2">
+    <canvas class="confetti" id="confetti-canvas"></canvas>
+    <div>
+      <h1>Happy Birthday!</h1>
+      <img src="images/sai.jpg" alt="Sai" width="300">
+      <p class="styled-text" id="wishText"></p>
+      <button onclick="goToPage(3)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 3: Sorry message -->
+  <div class="page" id="page3">
+    <div>
+      <h2>I'm Sorry...</h2>
+      <p class="styled-text" id="sorryText"></p>
+      <button onclick="goToPage(4)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 4: Birthday again -->
+  <div class="page" id="page4">
+    <div>
+      <h2>Once Again...</h2>
+      <p class="styled-text" id="birthdayAgainText"></p>
+      <button onclick="goToPage(5)">Next</button>
+    </div>
+  </div>
+
+  <!-- Page 5: Final message -->
+  <div class="page" id="page5">
+    <div>
+      <h2>Thanks for visiting</h2>
+      <p class="styled-text" id="finalText"></p>
+    </div>
+  </div>
+</body>
+</html>
