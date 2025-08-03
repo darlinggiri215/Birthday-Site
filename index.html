@@ -92,39 +92,40 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const correctName = 'Teju';
+const correctName = "Teju";
 
-      window.checkName = function(nameId) {
-        if (nameId === correctName) {
-          goToPage(2);
-          playMusic();
-          launchConfetti();
-          launchBalloons();
-          fetch("https://api.ipify.org?format=json")
-            .then(res => res.json())
-            .then(data => console.log("Visitor IP:", data.ip));
-        } else {
-          alert("Oops! That's not the right name. Try again.");
-        }
-      };
-
-     window.goToPage = function(n) {
-  const pages = document.querySelectorAll(".page");
-  pages.forEach(p => p.classList.remove("active"));
-
-  const targetId = typeof n === "number" ? "page" + n : "page" + n;
-  const targetPage = document.getElementById(targetId);
-
-  if (targetPage) {
-    targetPage.classList.add("active");
-  }
-
-  if (n === 2) {
+window.checkName = function(nameId) {
+  if (nameId === correctName) {
+    goToPage(2);
     playMusic();
     launchConfetti();
     launchBalloons();
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => console.log("Visitor IP:", data.ip));
+  } else {
+    alert("Oops! That's not the right name. Try again.");
   }
 };
 
+window.goToPage = function(pageId) {
+  const pages = document.querySelectorAll(".page");
+  pages.forEach(p => p.classList.remove("active"));
+
+  const target = document.getElementById(typeof pageId === "number" ? `page${pageId}` : `page${pageId}`);
+  if (target) {
+    target.classList.add("active");
+
+    // Special case: page2 triggers animation/music
+    if (pageId === 2 || pageId === "2") {
+      playMusic();
+      launchConfetti();
+      launchBalloons();
+    }
+  } else {
+    console.error("Page not found:", pageId);
+  }
+};
 
       function playMusic() {
         const music = document.getElementById("birthdayMusic");
@@ -195,12 +196,13 @@
 <div class="page active" id="page1">
   <div>
     <h2>Ready for a surprise?</h2>
-    <button id="startButton" onclick="showNameOptions()">Start Birthday Surprise</button>
+    <button onclick="goToPage('Name')">Start Birthday Surprise</button>
   </div>
 </div>
 
+
 <!-- Page 1.5: Name Selection (New Page) -->
-<div class="page" id="pageNameSelect">
+<div class="page" id="pageName">
   <div>
     <h2>Hey! Choose your name what I called you</h2>
     <div class="name-boxes">
@@ -210,6 +212,7 @@
     </div>
   </div>
 </div>
+
 
   <!-- Page 2: Birthday wish -->
   <div class="page" id="page2">
@@ -250,6 +253,7 @@
 </body>
 
 </html>
+
 
 
 
