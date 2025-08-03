@@ -183,18 +183,25 @@
 </audio>
 
 
-  <!-- Page 1: Name verification -->
-  <div class="page active" id="page1">
-    <div>
-      <h2>Hey! Choose your name What I called you</h2>
-      <div class="name-boxes">
-        <div class="name-option" onclick="checkName('Sai')">Sai</div>
-        <div class="name-option" onclick="checkName('Teju')">Teju</div>
-        <div class="name-option" onclick="checkName('Sai Tejeswari')">Sai Tejeswari</div>
-      </div>
-      <button id="startButton" onclick="startExperience()">Start Birthday Surprise</button>
+  <!-- Page 1: Start Button -->
+<div class="page active" id="page1">
+  <div>
+    <h2>Ready for a surprise?</h2>
+    <button id="startButton" onclick="showNameOptions()">Start Birthday Surprise</button>
+  </div>
+</div>
+
+<!-- Page 1.5: Name Selection (New Page) -->
+<div class="page" id="pageNameSelect">
+  <div>
+    <h2>Hey! Choose your name what I called you</h2>
+    <div class="name-boxes">
+      <div class="name-option" onclick="checkName('Sai')">Sai</div>
+      <div class="name-option" onclick="checkName('Teju')">Teju</div>
+      <div class="name-option" onclick="checkName('Sai Tejeswari')">Sai Tejeswari</div>
     </div>
   </div>
+</div>
 
   <!-- Page 2: Birthday wish -->
   <div class="page" id="page2">
@@ -235,6 +242,7 @@
 </body>
 
 </html>
+
 
 
 
