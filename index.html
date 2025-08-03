@@ -107,16 +107,24 @@
         }
       };
 
-      window.goToPage = function(n) {
-        const pages = document.querySelectorAll(".page");
-        pages.forEach(p => p.classList.remove("active"));
-        document.getElementById("page" + n).classList.add("active");
-        if (n === 2) {
-          playMusic();
-          launchConfetti();
-          launchBalloons();
-        }
-      };
+     window.goToPage = function(n) {
+  const pages = document.querySelectorAll(".page");
+  pages.forEach(p => p.classList.remove("active"));
+
+  const targetId = typeof n === "number" ? "page" + n : "page" + n;
+  const targetPage = document.getElementById(targetId);
+
+  if (targetPage) {
+    targetPage.classList.add("active");
+  }
+
+  if (n === 2) {
+    playMusic();
+    launchConfetti();
+    launchBalloons();
+  }
+};
+
 
       function playMusic() {
         const music = document.getElementById("birthdayMusic");
@@ -242,6 +250,7 @@
 </body>
 
 </html>
+
 
 
 
