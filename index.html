@@ -35,11 +35,14 @@
       margin: 10px;
       cursor: pointer;
     }
-    .photo {
-      max-width: 300px;
-      border-radius: 15px;
-      margin: 20px 0;
-    }
+.photo {
+  width: 250px;             /* Fixed smaller width */
+  height: auto;             /* Keep aspect ratio */
+  border-radius: 15px;
+  margin: 20px auto;        /* Center horizontally */
+  display: block;           /* Needed for margin auto to work */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Optional: nice effect */
+}
     .styled-text {
       font-size: 24px;
       margin-bottom: 20px;
@@ -198,9 +201,7 @@
     <canvas class="confetti" id="confetti-canvas"></canvas>
     <div>
       <h1>Happy Birthday!</h1>
-      <img src="birthdaypage/images/sai.jpg" 
-     alt="Happy Birthday"
-     style="width: 250px; height: auto; border-radius: 15px; display: block; margin: 0 auto;" />
+      <img src="birthdaypage/images/sai.jpg" alt="Happy Birthday" class="photo" />
       <p class="styled-text" id="wishText"></p>
       <button onclick="goToPage(3)">Next</button>
     </div>
@@ -234,5 +235,6 @@
 </body>
 
 </html>
+
 
 
