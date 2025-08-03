@@ -92,8 +92,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const correctName = 'Teju';
-const correctName = "Teju";
-
 window.checkName = function(nameId) {
   if (nameId === correctName) {
     goToPage(2);
@@ -108,22 +106,16 @@ window.checkName = function(nameId) {
   }
 };
 
-window.goToPage = function(pageId) {
+
+window.goToPage = function(n) {
   const pages = document.querySelectorAll(".page");
   pages.forEach(p => p.classList.remove("active"));
+  document.getElementById("page" + n).classList.add("active");
 
-  const target = document.getElementById(typeof pageId === "number" ? `page${pageId}` : `page${pageId}`);
-  if (target) {
-    target.classList.add("active");
-
-    // Special case: page2 triggers animation/music
-    if (pageId === 2 || pageId === "2") {
-      playMusic();
-      launchConfetti();
-      launchBalloons();
-    }
-  } else {
-    console.error("Page not found:", pageId);
+  if (n === 2) {
+    playMusic();
+    launchConfetti();
+    launchBalloons();
   }
 };
 
@@ -191,18 +183,8 @@ window.goToPage = function(pageId) {
   Your browser does not support the audio element.
 </audio>
 
-
-  <!-- Page 1: Start Button -->
+<!-- Page 1: Name verification (first page) -->
 <div class="page active" id="page1">
-  <div>
-    <h2>Ready for a surprise?</h2>
-    <button onclick="goToPage('Name')">Start Birthday Surprise</button>
-  </div>
-</div>
-
-
-<!-- Page 1.5: Name Selection (New Page) -->
-<div class="page" id="page2">
   <div>
     <h2>Hey! Choose your name what I called you</h2>
     <div class="name-boxes">
@@ -215,7 +197,7 @@ window.goToPage = function(pageId) {
 
 
   <!-- Page 2: Birthday wish -->
-  <div class="page" id="page3">
+  <div class="page" id="page2">
     <canvas class="confetti" id="confetti-canvas"></canvas>
     <div>
       <h1>Happy Birthday!</h1>
@@ -226,7 +208,7 @@ window.goToPage = function(pageId) {
   </div>
 
   <!-- Page 3: Sorry message -->
-  <div class="page" id="page4">
+  <div class="page" id="page3">
     <div>
       <h2>I'm Sorry...</h2>
       <p class="styled-text" id="sorryText"></p>
@@ -235,7 +217,7 @@ window.goToPage = function(pageId) {
   </div>
 
   <!-- Page 4: Birthday again -->
-  <div class="page" id="page5">
+  <div class="page" id="page4">
     <div>
       <h2>Once Again...</h2>
       <p class="styled-text" id="birthdayAgainText"></p>
@@ -244,7 +226,7 @@ window.goToPage = function(pageId) {
   </div>
 
   <!-- Page 5: Final message -->
-  <div class="page" id="page6">
+  <div class="page" id="page5">
     <div>
       <h2>Thanks for visiting</h2>
       <p class="styled-text" id="finalText"></p>
@@ -253,6 +235,7 @@ window.goToPage = function(pageId) {
 </body>
 
 </html>
+
 
 
 
